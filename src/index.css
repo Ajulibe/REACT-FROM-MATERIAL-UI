@@ -5,9 +5,94 @@ body {
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+
+
 }
 
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
+}
+
+#newstyle {
+  margin-top: 20px;
+  background-color: white;
+  ;
+}
+
+Form {
+  margin-top: 60%;
+  border: 1px solid #dee3e2;
+  padding: 30px 25px 25px 25px;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2),
+    0 6px 20px 0 rgba(0, 0, 0, 0.19);
+  font-size: small;
+
+
+}
+
+
+.background {
+  background-image: url("1.jpg");
+  padding-bottom: 50px;
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  top: 0;
+  left: 0;
+
+}
+
+.background2 {
+  background-image: url("2.jpg");
+  padding-bottom: 50px;
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  top: 0;
+  left: 0;
+
+}
+
+Button {
+  box-shadow: 0 2px 3px 0 rgba(0, 0, 0, 0.2),
+    0 6px 10px 0 rgba(0, 0, 0, 0.19);
+  color: #dee3e2;
+
+}
+
+/* media queries */
+
+@media screen and (max-width: 830px) {
+  Form {
+    margin-top: 20%;
+  }
+
+  #newstyle {
+    width: 200%;
+    margin-left: -50%;
+
+  }
+}
+
+#searchbox {
+  margin-top: 20%;
+  width: 20%;
+  margin-left: 40%;
+  background-color: white;
+  padding: 30px 25px 25px 25px;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2),
+    0 6px 20px 0 rgba(0, 0, 0, 0.19);
+  font-size: small;
+}
+
+.background3 {
+  background-image: url("4.jpg");
+  padding-bottom: 50px;
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  top: 0;
+  left: 0;
+
 }
