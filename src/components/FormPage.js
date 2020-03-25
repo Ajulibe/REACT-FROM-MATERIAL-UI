@@ -14,12 +14,21 @@ export class FormPage extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      emailValue: "email",
-      passwordValue: "email"
+      emailValue: "",
+      passwordValue: ""
     };
+    this.handleChange = this.handleChange.bind(this);
   }
+
+  mySubmitHandler = event => {
+    event.preventDefault();
+    alert("You are submitting " + this.state.emailValue);
+  };
+
   handleChange(event) {
-    this.setState({ value: event.target.value });
+    let nam = event.target.name;
+    let val = event.target.value;
+    this.setState({ [nam]: val });
   }
 
   render() {
@@ -32,7 +41,7 @@ export class FormPage extends Component {
             <Col xs={{ order: 1 }}>
               {/* main form */}
               <div id="newstyle">
-                <Form>
+                <Form onSubmit={this.mySubmitHandler}>
                   <Form.Label style={{ fontWeight: "Bold", fontSize: "20px" }}>
                     LOGIN{" "}
                   </Form.Label>
@@ -41,7 +50,8 @@ export class FormPage extends Component {
 
                   <Form.Group controlId="formBasicEmail">
                     <Form.Control
-                      emailValue={this.state.emailValue}
+                      value={this.state.emailValue}
+                      name="email"
                       type="email"
                       placeholder="Email"
                       onChange={this.handleChange}
@@ -50,7 +60,8 @@ export class FormPage extends Component {
 
                   <Form.Group controlId="formBasicPassword">
                     <Form.Control
-                      passwordValue={this.state.passwordValue}
+                      value={this.state.passwordValue}
+                      name="password"
                       type="password"
                       placeholder="Password"
                       onChange={this.handleChange}
