@@ -9,6 +9,22 @@ import "../index.css";
 import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
 
 export class Signup extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      emailValue: "email",
+      passwordValue: "email"
+    };
+  }
+  mySubmitHandler = event => {
+    event.preventDefault();
+    alert("You are submitting " + this.state.username);
+  };
+  handleChange(event) {
+    let nam = event.target.name;
+    let val = event.target.value;
+    this.setState({ [nam]: val });
+  }
   render() {
     const message = (
       <div style={{ display: "inline" }}>
@@ -25,7 +41,7 @@ export class Signup extends Component {
             <Col xs={{ order: 12 }}></Col>
             <Col xs={{ order: 1 }}>
               <div id="newstyle">
-                <Form>
+                <Form onSubmit={this.mySubmitHandler}>
                   <div style={{ borderBottom: "1px solid #dee3e2" }}>
                     <Form.Label
                       style={{ fontWeight: "Bold", fontSize: "20px" }}
@@ -41,17 +57,34 @@ export class Signup extends Component {
                   <br />
 
                   <Form.Group controlId="formBasicEmail">
-                    <Form.Control type="email" placeholder="First Name" />
+                    <Form.Control
+                      type="email"
+                      placeholder="First Name"
+                      name="firstName"
+                      onChange={this.handleChange}
+                    />
                     <br />
-                    <Form.Control type="email" placeholder="Last Name" />
+                    <Form.Control
+                      type="email"
+                      placeholder="Last Name"
+                      name="lastName"
+                      onChange={this.handleChange}
+                    />
                   </Form.Group>
 
                   <Form.Group controlId="formBasicPassword">
-                    <Form.Control type="password" placeholder="Password" />
+                    <Form.Control
+                      type="password"
+                      placeholder="Password"
+                      name="password"
+                      onChange={this.handleChange}
+                    />
                     <br />
                     <Form.Control
                       type="password"
                       placeholder="Confirm Password"
+                      name="confirmPassword"
+                      onChange={this.handleChange}
                     />
                   </Form.Group>
                   <Form.Group
