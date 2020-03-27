@@ -1,20 +1,22 @@
 const express = require("express");
 const bodyParser = require("body-parser");
 const bcrypt = require("bcrypt");
+var cors = require("cors");
 const saltRounds = 10;
 const someOtherPlaintextPassword = "not_bacon";
 
 const app = express();
 
 app.use(bodyParser.json());
+app.use(cors());
 
 const database = {
   users: [
     {
       id: "1",
       name: "akachukwu",
-      email: "akachi@gmail.com",
-      password: "bananas",
+      email: "akachi_benji@yahoo.com",
+      password: "aka",
       entries: 2,
       joined: new Date()
     },
@@ -43,7 +45,7 @@ app.get("/", (req, res) => {
 
 //posting for signin
 app.post("/signin", (req, res) => {
-  const { name, password } = req.body;
+  const { email, password } = req.body;
   // Load hash from your password DB.
   bcrypt.compare(
     "boy",
@@ -60,7 +62,7 @@ app.post("/signin", (req, res) => {
     }
   );
   database.users.forEach(user => {
-    if (name === user.name && password === user.password) {
+    if (email === user.email && password === user.password) {
       res.json("logged in");
     }
   });
