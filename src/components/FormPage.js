@@ -6,29 +6,59 @@ import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import Form from "react-bootstrap/Form";
 import "../index.css";
-import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
+import { Switch, Route, Link } from "react-router-dom";
+import axios from "axios";
 import Signup from "./Signup";
 import Card from "react-bootstrap/Card";
+import App from "../App";
+import { withRouter } from "react-router-dom";
+
+import { Router } from "react-router-dom";
 
 export class FormPage extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      emailValue: "",
-      passwordValue: ""
+      email: "",
+      password: "",
+      authenticated: false
     };
     this.handleChange = this.handleChange.bind(this);
+    this.mySubmitHandler = this.mySubmitHandler.bind(this);
   }
 
   mySubmitHandler = event => {
     event.preventDefault();
-    alert("You are submitting " + this.state.emailValue);
+    // console.log("You are submitting " + this.state);
+    //posting state data
+    const { email, password } = this.state;
+    axios
+      .post("http://localhost:3000/signin", {
+        email: email,
+        password: password
+      })
+      .then(response => {
+        console.log(response.data);
+        if (response.data === "logged in") {
+          this.props.history.push("/navbar");
+        }
+      })
+
+      .catch(error => {
+        console.log("We are getting this error:");
+        console.log(error.response);
+      });
   };
 
   handleChange(event) {
-    let nam = event.target.name;
-    let val = event.target.value;
-    this.setState({ [nam]: val });
+    event.stopPropagation();
+    let name = event.target.name;
+    let value = event.target.value;
+
+    //setting the new state
+    this.setState({
+      [name]: value
+    });
   }
 
   render() {
@@ -50,7 +80,7 @@ export class FormPage extends Component {
 
                   <Form.Group controlId="formBasicEmail">
                     <Form.Control
-                      value={this.state.emailValue}
+                      value={this.state.email}
                       name="email"
                       type="email"
                       placeholder="Email"
@@ -60,7 +90,7 @@ export class FormPage extends Component {
 
                   <Form.Group controlId="formBasicPassword">
                     <Form.Control
-                      value={this.state.passwordValue}
+                      value={this.state.password}
                       name="password"
                       type="password"
                       placeholder="Password"
@@ -74,7 +104,12 @@ export class FormPage extends Component {
                     <Form.Check type="checkbox" label="Remember me" />
                   </Form.Group>
                   <Form.Group style={{ paddingTop: "5px" }}>
-                    <Button size="sm" block>
+                    <Button
+                      size="sm"
+                      block
+                      type="submit"
+                      // onClick={() => props.loggedIn(route)}
+                    >
                       LOGIN
                     </Button>
                   </Form.Group>
@@ -112,4 +147,4 @@ export class FormPage extends Component {
   }
 }
 
-export default FormPage;
+export default withRouter(FormPage);

@@ -3,16 +3,21 @@ import ReactDOM from "react-dom";
 import "./index.css";
 import App from "./App";
 import * as serviceWorker from "./serviceWorker";
-import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
+import { Switch, Route, Link } from "react-router-dom";
 import Signup from "./components/Signup";
 import FormPage from "./components/FormPage";
 import Navbar from "./components/Navbar";
+import history from "./history";
+import { Router } from "react-router-dom";
 
 class Complete extends Component {
   state = {};
+  // parentloggedIn() {
+  //   this.setState({ authenticated: true });
+  // }
   render() {
     return (
-      <Router>
+      <Router history={history}>
         <Switch>
           <Route exact path="/">
             <FormPage />
@@ -20,6 +25,7 @@ class Complete extends Component {
           <Route exact path="/Signup">
             <Signup />
           </Route>
+
           <Route exact path="/navbar">
             <Navbar />
           </Route>
