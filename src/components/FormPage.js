@@ -29,7 +29,7 @@ export class FormPage extends Component {
 
   mySubmitHandler = event => {
     event.preventDefault();
-    // console.log("You are submitting " + this.state);
+    console.log("You are submitting " + this.state);
     //posting state data
     const { email, password } = this.state;
     axios
@@ -131,13 +131,13 @@ export class FormPage extends Component {
               </div>
               <br />
               <div>
-                <Form.Group controlId="formBasicEmail">
+                {/* <Form.Group controlId="formBasicEmail">
                   <Link to="/navbar">
                     <Button size="sm" block style={{ borderRadius: "2%" }}>
                       SEARCH
                     </Button>
                   </Link>
-                </Form.Group>
+                </Form.Group> */}
               </div>
             </Col>
           </Row>

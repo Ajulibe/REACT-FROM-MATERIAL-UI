@@ -6,24 +6,58 @@ import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import Form from "react-bootstrap/Form";
 import "../index.css";
+import axios from "axios";
+import { withRouter } from "react-router-dom";
 import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
 
 export class Signup extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      emailValue: "email",
-      passwordValue: "email"
+      name: "",
+      email: "",
+      password: ""
+      // confirmPassword: ""
     };
+    this.handleChange = this.handleChange.bind(this);
+    this.mySubmitHandler = this.mySubmitHandler.bind(this);
   }
   mySubmitHandler = event => {
     event.preventDefault();
-    alert("You are submitting " + this.state.username);
+    console.log("submitted");
+    console.log("You are submitting " + this.state.email);
+
+    //posting registration data
+    const { name, email, password } = this.state;
+    axios
+      .post("http://localhost:3000/register", {
+        name: name,
+        email: email,
+        password: password
+      })
+      .then(response => {
+        console.log(response.data);
+        if (response.data === "registered") {
+          alert("registered");
+
+          this.props.history.push("/");
+        }
+      })
+
+      .catch(error => {
+        console.log("We are getting this error:");
+        console.log(error.response);
+      });
   };
+
+  //
   handleChange(event) {
-    let nam = event.target.name;
-    let val = event.target.value;
-    this.setState({ [nam]: val });
+    event.stopPropagation();
+    let name = event.target.name;
+    let value = event.target.value;
+
+    //setting thwe new state
+    this.setState({ [name]: value });
   }
   render() {
     const message = (
@@ -58,16 +92,18 @@ export class Signup extends Component {
 
                   <Form.Group controlId="formBasicEmail">
                     <Form.Control
-                      type="email"
-                      placeholder="First Name"
-                      name="firstName"
+                      type="text"
+                      placeholder="name"
+                      name="name"
+                      value={this.state.name}
                       onChange={this.handleChange}
                     />
                     <br />
                     <Form.Control
                       type="email"
-                      placeholder="Last Name"
-                      name="lastName"
+                      placeholder="Email"
+                      name="email"
+                      value={this.state.email}
                       onChange={this.handleChange}
                     />
                   </Form.Group>
@@ -77,15 +113,17 @@ export class Signup extends Component {
                       type="password"
                       placeholder="Password"
                       name="password"
+                      value={this.state.password}
                       onChange={this.handleChange}
                     />
                     <br />
-                    <Form.Control
+                    {/* <Form.Control
                       type="password"
                       placeholder="Confirm Password"
                       name="confirmPassword"
+                      value={this.state.confirmPassword}
                       onChange={this.handleChange}
-                    />
+                    /> */}
                   </Form.Group>
                   <Form.Group
                     controlId="formBasicCheckbox"
@@ -98,7 +136,7 @@ export class Signup extends Component {
                     />
                   </Form.Group>
                   <Form.Group style={{ paddingTop: "5px" }}>
-                    <Button size="sm" block>
+                    <Button type="submit" size="sm" block>
                       SIGN UP
                     </Button>
                   </Form.Group>
@@ -111,13 +149,13 @@ export class Signup extends Component {
               </div>
               <br />
               <div>
-                <Form.Group controlId="formBasicEmail">
+                {/* <Form.Group controlId="formBasicEmail">
                   <Link to="/navbar">
                     <Button size="sm" block style={{ borderRadius: "2%" }}>
                       SEARCH
                     </Button>
                   </Link>
-                </Form.Group>
+                </Form.Group> */}
               </div>
             </Col>
           </Row>
@@ -127,4 +165,4 @@ export class Signup extends Component {
   }
 }
 
-export default Signup;
+export default withRouter(Signup);
