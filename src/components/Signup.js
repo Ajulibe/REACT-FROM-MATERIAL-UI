@@ -82,6 +82,7 @@ export class Signup extends Component {
                     >
                       SIGN UP{" "}
                     </Form.Label>
+                    <br />
                     <Form.Label
                       style={{ fontWeight: "Normal", Color: "#dee3e2" }}
                     >
