@@ -30,7 +30,7 @@ export class Signup extends Component {
     //posting registration data
     const { name, email, password } = this.state;
     axios
-      .post("http://localhost:3000/register", {
+      .post("https://loginnodb.herokuapp.com/register", {
         name: name,
         email: email,
         password: password
